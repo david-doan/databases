@@ -1,6 +1,6 @@
 var db = require('../db');
 
-var getMsgs = 'select u.username, r.roomname, m.msg from messages m \
+var getMsgs = 'select m.id, u.username, r.roomname, m.msg from messages m \
                 inner join users u on u.id = m.userid \
                 inner join rooms r on r.id = m.roomid';
 
@@ -15,6 +15,7 @@ module.exports = {
           res.status(400).send('Database is down');
         } else {
           console.log('Successful send from DB');
+          console.log(row);
           res.status(200).send({results: row });
         }
       });
@@ -35,6 +36,8 @@ module.exports = {
           db.DB.query( MsgInsert(obj), (err) => {
             //if fail
             if (err) {
+              console.log(err, '<--- err');
+              console.log(MsgInsert(obj));
               console.log('cannot insert message');
               //respond with 404 erorr
               res.status(400).send('poop');
@@ -69,7 +72,7 @@ var RmInsert = (obj) => {
 
 var MsgInsert = (obj) => {
   var message = obj.text;
-  return `insert messages (msg, userid, roomid) values ('${message}',(${usrQuery(obj)}),(${rmQuery(obj)}))`;
+  return `insert messages (msg, userid, roomid) values ("${message}",(${usrQuery(obj)}),(${rmQuery(obj)}))`;
 };
 
 var usrQuery = (obj) => {

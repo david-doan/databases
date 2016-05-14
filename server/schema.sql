@@ -6,13 +6,13 @@ USE chat;
 
 CREATE TABLE users (
   id int not null auto_increment,
-  username varchar(20) unique,
+  username varchar(20) character set utf8 collate utf8_bin unique,
   primary key(id)
 );
 
 CREATE TABLE rooms (
   id int not null auto_increment,
-  roomname varchar(20) unique,
+  roomname varchar(20) character set utf8 collate utf8_bin unique,
   primary key(id)
 );
 
