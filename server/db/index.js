@@ -19,3 +19,10 @@ dbConnection.connect(err => {
 });
 
 exports.DB = dbConnection;
+exports.DBConnect = () => { 
+  exports.DB = mysql.createConnection({
+    user: 'root',
+    password: '1234',
+    database: 'chat'  
+  });
+};

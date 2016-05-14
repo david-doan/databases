@@ -6,13 +6,13 @@ USE chat;
 
 CREATE TABLE users (
   id int not null auto_increment,
-  name varchar(20) unique,
+  username varchar(20) unique,
   primary key(id)
 );
 
-CREATE TABLE room (
+CREATE TABLE rooms (
   id int not null auto_increment,
-  name varchar(20),
+  roomname varchar(20) unique,
   primary key(id)
 );
 
@@ -28,13 +28,13 @@ CREATE TABLE friend (
 CREATE TABLE messages (
   /* Describe your table here.*/
   id int not null auto_increment,
-  id_user int,
-  id_room int,
+  userid int,
+  roomid int,
   msg varchar(140),
   createAt timestamp,
   primary key (id),
-  FOREIGN KEY (id_user) REFERENCES users(id),
-  FOREIGN KEY (id_room) REFERENCES room(id)
+  FOREIGN KEY (userid) REFERENCES users(id),
+  FOREIGN KEY (roomid) REFERENCES rooms(id)
 );
 /* Create other tables and define schemas for them here! */
 
